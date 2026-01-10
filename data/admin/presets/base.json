@@ -1,0 +1,963 @@
+{
+    "list": [
+        {
+            "name": "Base tables",  
+            "desc": "SmartMonitoring base tables",
+            "version": "3.0 Alpha",
+            "state": [
+                {
+                    "name": "tbl_ootype",
+                    "type": "rest",
+                    "method": "defs",
+                    "fromName": "tbl_ootype"
+                },
+                {
+                    "name": "tbl_metatype",
+                    "type": "rest",
+                    "method": "defs",
+                    "fromName": "tbl_metatype"
+                },
+                {
+                    "name": "tbl_datatype",
+                    "type": "rest",
+                    "method": "defs",
+                    "fromName": "tbl_datatype"
+                },
+                {
+                    "name": "tbl_observedobject",
+                    "type": "rest",
+                    "method": "defs",
+                    "fromName": "tbl_observedobject"
+                },
+                {
+                    "name": "tbl_location",
+                    "type": "rest",
+                    "method": "defs",
+                    "fromName": "tbl_location"
+                },
+                {
+                    "name": "tbl_location_join_oo",
+                    "type": "rest",
+                    "method": "defs",
+                    "fromName": "tbl_location_join_oo"
+                }
+            ],
+            "collections": [
+                {
+                    "name": "tbl_ootype",
+                    "fromName": "tbl_ootype",
+                    "method": "cdefs",
+                    "body": {
+                        "name": "tbl_ootype",
+                        "attributes": [
+                            {
+                                "isIdentity": true,
+                                "isAutoIncrement": true,
+                                "isNullable": false,
+                                "name": "id",
+                                "type": "bigserial"
+                            },
+                            {
+                                "name": "name",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "description",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "icon",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "flattendsets",
+                                "type": "bool"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "tbl_metatype",
+                    "fromName": "tbl_metatype",
+                    "method": "cdefs",
+                    "body": {
+                        "name": "tbl_metatype",
+                        "attributes": [
+                            {
+                                "isIdentity": true,
+                                "isAutoIncrement": true,
+                                "isNullable": false,
+                                "name": "id",
+                                "type": "bigserial"
+                            },
+                            {
+                                "name": "name",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "description",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "icon",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "type",
+                                "type": "varchar(45)"
+                            },
+                            {
+                                "name": "unit",
+                                "type": "varchar(45)"
+                            },
+                            {
+                                "name": "possiblevalues",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "isidentity",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "isnullable",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "isautoincrement",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "refcollection",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "refattribute",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "refstorage",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "refondelete",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "refonupdate",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "ootype_id",
+                                "type": "int8"
+                            },
+                            {
+                                "name": "editable",
+                                "type": "bool"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "tbl_datatype",
+                    "fromName": "tbl_datatype",
+                    "method": "cdefs",
+                    "body": {
+                        "name": "tbl_datatype",
+                        "attributes": [
+                            {
+                                "isIdentity": true,
+                                "isAutoIncrement": true,
+                                "isNullable": false,
+                                "name": "id",
+                                "type": "bigserial"
+                            },
+                            {
+                                "name": "name",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "description",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "icon",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "type",
+                                "type": "varchar(45)"
+                            },
+                            {
+                                "name": "unit",
+                                "type": "varchar(45)"
+                            },
+                            {
+                                "name": "possiblevalues",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "isidentity",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "isnullable",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "isautoincrement",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "refcollection",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "refattribute",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "refstorage",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "refondelete",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "refonupdate",
+                                "type": "varchar"
+                            },
+                            {
+                                "name": "ootype_id",
+                                "type": "int8"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "tbl_observedobject",
+                    "fromName": "tbl_observedobject",
+                    "method": "cdefs",
+                    "body": {
+                        "name": "tbl_observedobject",
+                        "attributes": [
+                            {
+                                "isIdentity": true,
+                                "isAutoIncrement": true,
+                                "isNullable": false,
+                                "name": "id",
+                                "type": "bigserial"
+                            },
+                            {
+                                "name": "name",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "description",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "mac",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "ip",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "icon",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "manualcapture",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "datacapture",
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "data_collection",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "measurerate",
+                                "type": "int4"
+                            },
+                            {
+                                "name": "meta_collection",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "ootype_id",
+                                "type": "int8"
+                            },
+                            {
+                                "name": "parent_id",
+                                "type": "int8"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "tbl_location",
+                    "fromName": "tbl_location",
+                    "method": "cdefs",
+                    "body": {
+                        "name": "tbl_location",
+                        "attributes": [
+                            {
+                                "isIdentity": true,
+                                "isAutoIncrement": true,
+                                "isNullable": false,
+                                "name": "id",
+                                "type": "bigserial"
+                            },
+                            {
+                                "name": "name",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "description",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "street",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "houseno",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "postcode",
+                                "type": "varchar(10)"
+                            },
+                            {
+                                "name": "city",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "country",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "floor",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "apartment",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "room",
+                                "type": "varchar(64)"
+                            },
+                            {
+                                "name": "coordinates",
+                                "type": "geometry(Point,4326)"
+                            },
+                            {
+                                "name": "parent_id",
+                                "type": "int8"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "tbl_location_join_oo",
+                    "fromName": "tbl_location_join_oo",
+                    "method": "cdefs",
+                    "body": {
+                        "name": "tbl_location_join_oo",
+                        "attributes": [
+                            {
+                                "isIdentity": true,
+                                "isAutoIncrement": true,
+                                "isNullable": false,
+                                "name": "id",
+                                "type": "bigserial"
+                            },
+                            {
+                                "name": "valid_from",
+                                "type": "timestamp"
+                            },
+                            {
+                                "name": "valid_until",
+                                "type": "timestamp"
+                            },
+                            {
+                                "name": "loc_id",
+                                "type": "int8"
+                            },
+                            {
+                                "name": "oo_id",
+                                "type": "int8"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },{
+            "name": "Navigationsmenü",  
+            "desc": "Erstellung des Navigationsmenüs",
+            "version": "3.0 Alpha",
+            "state": [
+                {
+                    "name": "tbl_navigationroute",
+                    "type": "rest",
+                    "method": "defs",
+                    "fromName": "tbl_navigationroute"
+                }
+            ],
+            "collections": [
+                {
+                    "name": "tbl_navigationroute",
+                    "fromName": "tbl_navigationroute",
+                    "method": "cdefs",
+                    "body": {
+                        "name": "tbl_navigationroute",
+                        "attributes": [
+                            {
+                                "isIdentity": true,
+                                "isAutoIncrement": true,
+                                "isNullable": false,
+                                "name": "id",
+                                "type": "bigserial"
+                            },
+                            {
+                                "name": "name",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "rfrom",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "rto",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "parent",
+                                "type": "int8"
+                            },
+                            {
+                                "name": "active",
+                                "type": "bool"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "data": [
+                {
+                    "name": "tbl_navigationroute",
+                    "fromName": "tbl_navigationroute",
+                    "method": "create",
+                    "body": [
+                        {
+                            "id": 1,
+                            "name": "menu_object",
+                            "rfrom": "*",
+                            "rto": "#",
+                            "active": true
+                        },
+                        {
+                            "id": 2,
+                            "name": "menu_object_dashboard",
+                            "rfrom": "*",
+                            "rto": "object/dashboard.html",
+                            "parent": 1,
+                            "active": true
+                        },
+                        {
+                            "id": 3,
+                            "name": "menu_object_create",
+                            "rfrom": "*",
+                            "rto": "object/create.html",
+                            "parent": 1,
+                            "active": true
+                        },
+                        {
+                            "id": 4,
+                            "name": "menu_object_list",
+                            "rfrom": "*",
+                            "rto": "object/list.html",
+                            "parent": 1,
+                            "active": true
+                        }, 
+                        {
+                            "id": 5,
+                            "name": "menu_object_sheme",
+                            "rfrom": "*",
+                            "rto": "object/scheme.html",
+                            "parent": 1,
+                            "active": false
+                        },
+                        {
+                            "id": 6,
+                            "name": "menu_object_map",
+                            "rfrom": "*",
+                            "rto": "object/map.html",
+                            "parent": 1,
+                            "active": true
+                        },
+                        {
+                            "id": 40,
+                            "name": "menu_data",
+                            "rfrom": "*",
+                            "rto": "#",
+                            "active": true
+                        },
+                        {
+                            "id": 41,
+                            "name": "menu_data_map",
+                            "rfrom": "*",
+                            "rto": "data/map.html",
+                            "parent": 40,
+                            "active": false
+                        },
+                        {
+                            "id": 42,
+                            "name": "menu_data_charts",
+                            "rfrom": "*",
+                            "rto": "data/charts.html",
+                            "parent": 40,
+                            "active": true
+                        },
+                        {
+                            "id": 43,
+                            "name": "menu_data_visualisation",
+                            "rfrom": "*",
+                            "rto": "data/visualisation.html",
+                            "parent": 40,
+                            "active": true
+                        },
+                        {
+                            "id": 44,
+                            "name": "menu_data_compare",
+                            "rfrom": "*",
+                            "rto": "data/compare.html",
+                            "parent": 40,
+                            "active": false
+                        },
+                        {
+                            "id": 45,
+                            "name": "menu_data_pipelines",
+                            "rfrom": "*",
+                            "rto": "data/pipelines.html",
+                            "parent": 40,
+                            "active": false
+                        },
+                        {
+                            "id": 46,
+                            "name": "menu_data_upload",
+                            "rfrom": "*",
+                            "rto": "data/upload.html",
+                            "parent": 40,
+                            "active": false
+                        },
+                        {
+                            "id": 47,
+                            "name": "menu_data_collect",
+                            "rfrom": "*",
+                            "rto": "data/collect.html",
+                            "parent": 40,
+                            "active": false
+                        },
+                        {
+                            "id": 48,
+                            "name": "menu_data_sync",
+                            "rfrom": "*",
+                            "rto": "data/sync.html",
+                            "parent": 40,
+                            "active": false
+                        },
+                        {
+                            "id": 49,
+                            "name": "menu_data_sources",
+                            "rfrom": "*",
+                            "rto": "data/sources.html",
+                            "parent": 40,
+                            "active": false
+                        },
+                        {
+                            "id": 60,
+                            "name": "menu_stat",
+                            "rfrom": "*",
+                            "rto": "#",
+                            "active": true
+                        },
+                        {
+                            "id": 61,
+                            "name": "menu_stat_ootype",
+                            "rfrom": "*",
+                            "rto": "statistic/ootypes.html",
+                            "parent": 60,
+                            "active": false
+                        },
+                        {
+                            "id": 62,
+                            "name": "menu_stat_oolabels",
+                            "rfrom": "*",
+                            "rto": "statistic/oolabels.html",
+                            "parent": 60,
+                            "active": false
+                        },
+                        {
+                            "id": 63,
+                            "name": "menu_stat_oodata",
+                            "rfrom": "*",
+                            "rto": "statistic/oodata.html",
+                            "parent": 60,
+                            "active": false
+                        },
+                        {
+                            "id": 64,
+                            "name": "menu_stat_locneighbors",
+                            "rfrom": "*",
+                            "rto": "statistic/locneighbors.html",
+                            "parent": 60,
+                            "active": false
+                        },
+                        {
+                            "id": 65,
+                            "name": "menu_stat_locmissing",
+                            "rfrom": "*",
+                            "rto": "statistic/locmissing.html",
+                            "parent": 1,
+                            "active": false
+                        },
+                        {
+                            "id": 66,
+                            "name": "menu_stat_dboverview",
+                            "rfrom": "*",
+                            "rto": "statistic/dboverview.html",
+                            "parent": 1,
+                            "active": false
+                        },
+                        {
+                            "id": 67,
+                            "name": "menu_stat_datamissing",
+                            "rfrom": "*",
+                            "rto": "statistic/datamissing.html",
+                            "parent": 1,
+                            "active": false
+                        },
+                        {
+                            "id": 80,
+                            "name": "menu_media",
+                            "rfrom": "*",
+                            "rto": "#",
+                            "active": true
+                        },
+                        {
+                            "id": 81,
+                            "name": "menu_media_gallery",
+                            "rfrom": "*",
+                            "rto": "media/gallery.html",
+                            "parent": 80,
+                            "active": true
+                        },
+                        {
+                            "id": 82,
+                            "name": "menu_media_upload",
+                            "rfrom": "*",
+                            "rto": "media/upload.html",
+                            "parent": 80,
+                            "active": true
+                        },
+                        {
+                            "id": 100,
+                            "name": "menu_admin",
+                            "rfrom": "*",
+                            "rto": "#",
+                            "active": true
+                        },
+                        {
+                            "id": 104,
+                            "name": "menu_admin_objecttypes",
+                            "rfrom": "*",
+                            "rto": "admin/objecttypes.html",
+                            "parent": 30,
+                            "active": true
+                        },
+                        {
+                            "id": 105,
+                            "name": "menu_admin_labels",
+                            "rfrom": "*",
+                            "rto": "admin/labels.html",
+                            "parent": 30,
+                            "active": true
+                        },
+                        {
+                            "id": 106,
+                            "name": "menu_admin_layout",
+                            "rfrom": "*",
+                            "rto": "admin/layout.html",
+                            "parent": 30,
+                            "active": true
+                        },
+                        {
+                            "id": 107,
+                            "name": "menu_admin_functions",
+                            "rfrom": "*",
+                            "rto": "admin/functions.html",
+                            "parent": 30,
+                            "active": true
+                        },
+                        {
+                            "id": 200,
+                            "name": "menu_about",
+                            "rfrom": "*",
+                            "rto": "#",
+                            "active": true
+                        },
+                        {
+                            "id": 201,
+                            "name": "menu_about_privacy",
+                            "rfrom": "*",
+                            "rto": "about/privacy.html",
+                            "parent": 40,
+                            "active": true
+                        },
+                        {
+                            "id": 202,
+                            "name": "menu_about_imprint",
+                            "rfrom": "*",
+                            "rto": "about/imprint.html",
+                            "parent": 40,
+                            "active": true
+                        },
+                        {
+                            "id": 203,
+                            "name": "menu_about_system",
+                            "rfrom": "*",
+                            "rto": "about/system.html",
+                            "parent": 40,
+                            "active": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Admin Funktionsverwaltung",
+            "desc": "Erstellung der Admin Funktionsverwaltung",
+            "version": "3.0 Alpha",
+            "state": [
+                {
+                    "name": "tbl_systemconfiguration",
+                    "type": "rest",
+                    "method": "defs",
+                    "fromName": "tbl_systemconfiguration"
+                }
+            ],
+            "collections": [
+                {
+                    "name": "tbl_systemconfiguration",
+                    "fromName": "tbl_systemconfiguration",
+                    "method": "cdefs",
+                    "body": {
+                        "name": "tbl_systemconfiguration",
+                        "attributes": [
+                            {
+                                "isIdentity": true,
+                                "isAutoIncrement": true,
+                                "isNullable": false,
+                                "name": "id",
+                                "type": "bigserial"
+                            },
+                            {
+                                "name": "ckey",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "ctype",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "cvalue",
+                                "type": "varchar(255)"
+                            },
+                            {
+                                "name": "active",
+                                "type": "bool"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "data": [
+                {
+                    "name": "tbl_systemconfiguration",
+                    "fromName": "tbl_systemconfiguration",
+                    "method": "create",
+                    "checkfor": "ckey",
+                    "body": [
+                        {
+                            "id": 1,
+                            "ckey": "func_objecttagging",
+                            "active": true
+                        },
+                        {
+                            "id": 2,
+                            "ckey": "func_datatagging",
+                            "active": true
+                        },
+                        {
+                            "id": 3,
+                            "ckey": "func_datamap",
+                            "active": true
+                        },
+                        {
+                            "id": 4,
+                            "ckey": "func_datavisualisation",
+                            "active": true
+                        },
+                        {
+                            "id": 5,
+                            "ckey": "func_dataapi",
+                            "active": true
+                        },
+                        {
+                            "id": 6,
+                            "ckey": "func_objectmap",
+                            "active": false
+                        },
+                        {
+                            "id": 7,
+                            "ckey": "func_objectmap_createobject",
+                            "active": false
+                        },
+                        {
+                            "id": 8,
+                            "ckey": "func_objectmap_objectdata",
+                            "active": false
+                        },
+                        {
+                            "id": 9,
+                            "ckey": "func_objectmap_objectdata",
+                            "active": false
+                        },
+                        {
+                            "id": 11,
+                            "ckey": "func_objectmap_search",
+                            "active": false
+                        },
+                        {
+                            "id": 12,
+                            "ckey": "func_objectmap_filter",
+                            "active": false
+                        },
+                        {
+                            "id": 13,
+                            "ckey": "func_objectmap_toggleclickinteraction",
+                            "active": false
+                        },
+                        {
+                            "id": 14,
+                            "ckey": "func_objectmap_togglelatchonlocation",
+                            "active": false
+                        },
+                        {
+                            "id": 15,
+                            "ckey": "func_objectmap_help",
+                            "active": false
+                        },
+                        {
+                            "id": 16,
+                            "ckey": "func_objectmap_labels",
+                            "active": true
+                        },
+                        {
+                            "id": 17,
+                            "ckey": "func_datamap_datashowmodal",
+                            "active": true
+                        },
+                        {
+                            "id": 18,
+                            "ckey": "func_datamap_timeline",
+                            "active": false
+                        },
+                        {
+                            "id": 19,
+                            "ckey": "func_datamap_navigation",
+                            "active": false
+                        },
+                        {
+                            "id": 20,
+                            "ckey": "func_geolocation_magicmapper",
+                            "active": false
+                        },
+                        {
+                            "id": 21,
+                            "ckey": "func_datamap_search",
+                            "active": false
+                        },
+                        {
+                            "id": 22,
+                            "ckey": "func_datamap_filter",
+                            "active": false
+                        },
+                        {
+                            "id": 23,
+                            "ckey": "func_datamap_toggleclickinteraction",
+                            "active": false
+                        },
+                        {
+                            "id": 24,
+                            "ckey": "func_datamap_togglelatchonlocation",
+                            "active": false
+                        },
+                        {
+                            "id": 25,
+                            "ckey": "func_datamap_help",
+                            "active": false
+                        },
+                        {
+                            "id": 26,
+                            "ckey": "func_datamap_labels",
+                            "active": true
+                        },
+                        {
+                            "id": 27,
+                            "ckey": "func_userlogin",
+                            "active": true
+                        },
+                        {
+                            "id": 28,
+                            "ckey": "func_mediaupload",
+                            "active": true
+                        },
+                        {
+                            "id": 29,
+                            "ckey": "func_mediagalery",
+                            "active": true
+                        },
+                        {
+                            "id": 30,
+                            "ckey": "func_medialabeling",
+                            "active": false
+                        },
+                        {
+                            "id": 31,
+                            "ckey": "func_userdashboard",
+                            "active": false
+                        },
+                        {
+                            "id": 32,
+                            "ckey": "func_userfavs",
+                            "active": false
+                        },
+                        {
+                            "id": 33,
+                            "ckey": "func_objectscheme",
+                            "active": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
