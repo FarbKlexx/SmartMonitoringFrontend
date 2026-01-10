@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title swac_lang="data_sources_title">Datasources</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../files/icons/32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../files/icons/16x16.png">
+        <link rel="stylesheet" type="text/css" href="../../css/global.css">
+        <noscript>
+        <link rel="stylesheet" type="text/css" href="../../css/noscript.css">
+        </noscript>
+
+        <link rel="stylesheet" type="text/css" href="/SWAC/swac/libs/uikit/css/uikit.min.css">
+        <script src="/SWAC/swac/libs/uikit/js/uikit.min.js"></script>
+        <script src="/SWAC/swac/libs/uikit/js/uikit-icons.min.js"></script>
+        <script src="/SWAC/swac/swac.js" type="module"></script>
+        <script src="../../js/data/sources.js"></script>
+    </head>
+    <body>
+        <header id="head_navigation" swa="Navigation FROM tbl_navigationroute WHERE filter=active,eq,true AND order=id,ASC"></header>
+        <div id="userform" swa="User"></div>
+        <div id="translate" swa="Translator FROM ../../data/languages/translations.json"></div>
+
+        <article>
+            <h1 swac_lang="data_sources_title">List of datasources</h1>
+            <p swac_lang="data_sources_desc">The folowing list contains open datasources</p>
+
+            <div id="sourcestable" swa="Present FROM tbl_datasource WHERE join=tbl_observedobject">
+                <ul class="uk-list">
+                    <li class="swac_repeatForSet" swac_parent="{parent}">
+                        <div class="uk-card uk-card-default uk-card-small uk-card-body">
+                            <div uk-grid>
+                                <div class="uk-width-small">
+                                    <picture>
+                                        <source srcset="../../files/sourceicons/{icon}.avif" type="image/avif">
+                                        <img src="../../files/sourceicons/{icon}.png" alt="object icon" width="100" height="100" style="float: left;">
+                                    </picture>
+                                </div>
+                                <div class="uk-width-expand@m">
+                                    <h3 class="uk-card-title" uk-tooltip="{id}">{name}</h3>
+                                    <div>{description}</div>
+                                    <ul class="uk-subnav uk-subnav-divider" uk-margin>
+                                        <li>{swac_joinsetsCount} &nbsp;<span swac_lang="data_sources_objectcount">objects with this source.</span></li>
+                                        <li swac_hideOnEmpty="{responsible_name}"><span swac_lang="data_sources_responsible">Responsible</span> &nbsp;<a href="responsible_url">{responsible_name}</a></li>
+                                        <li swac_hideOnEmpty="{contact_name}"><span swac_lang="data_sources_contact">Contact</span> &nbsp;<a href="{contact_url}">{contact_name}</a> | <a swac_hideOnEmpty="{contact_email}" href="email:{contact_email}">{contact_email}</a></li>
+                                        <li swac_hideOnEmpty="{data_actual_api}{data_actual_url}"><span swac_lang="data_sources_actual">Actual data</span> &nbsp;<a swac_hideOnEmpty="{data_actual_api}" href="{data_actual_api}">API</a> | <a swac_hideOnEmpty="{data_actual_url}" href="{data_actual_url}">Website</a></li>
+                                        <li swac_hideOnEmpty="{data_hist_api}{data_hist_url}"><span swac_lang="data_sources_hist">Historical data</span> &nbsp;<a swac_hideOnEmpty=""{data_hist_api}" href="{data_hist_api}">API</a> | <a swac_hideOnEmpty="{data_hist_url}" href="{data_hist_url}">Website</a></li>
+                                        <li><span swac_lang="data_sources_license">License</span> &nbsp;<a href="{data_license_url}">{data_license}</a></li>
+                                    </ul>
+                                    <ul uk-accordion>
+                                        <li>
+                                            <a class="uk-accordion-title" href swac_lang="data_sources_citation">Citation</a>
+                                            <div class="uk-accordion-content">
+                                                <p>{citation}</p>
+                                            </div>
+                                        </li>
+                                        <li swac_hideOnEmpty="{data_actual_api_guide}">
+                                            <span uk-icon="cloud-download"></span><a class="uk-accordion-title" href swac_lang="data_sources_actual_api_guide">Actual data API guide</a>
+                                            <div class="uk-accordion-content">
+                                                <p>{data_actual_api_guide}</p>
+                                            </div>
+                                        </li>
+                                        <li swac_hideOnEmpty="{data_actual_url_guide}">
+                                            <span uk-icon="download"></span><a class="uk-accordion-title" href swac_lang="data_sources_actual_url_guide">Actual data URL guide</a>
+                                            <div class="uk-accordion-content">
+                                                <p>{data_actual_url_guide}</p>
+                                            </div>
+                                        </li>
+                                        <li swac_hideOnEmpty="{data_hist_api_guide}">
+                                            <span uk-icon="cloud-download"></span><a class="uk-accordion-title" href swac_lang="data_sources_hist_api_guide">Historical data API guide</a>
+                                            <div class="uk-accordion-content">
+                                                <p>{data_hist_api_guide}</p>
+                                            </div>
+                                        </li>
+                                        <li swac_hideOnEmpty="{data_hist_url_guide}">
+                                            <span uk-icon="download"></span><a class="uk-accordion-title" href swac_lang="data_sources_hist_url_guide">Historical data URL guide</a>
+                                            <div class="uk-accordion-content">
+                                                <p>{data_hist_url_guide}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <ul class="swac_forChilds uk-list">
+                                <li class="swac_child">
+                                    <div class="uk-card uk-card-default uk-card-small uk-card-body">
+                                        <div uk-grid>
+                                            <div class="uk-width-small">
+                                                <picture>
+                                                    <source srcset="../../files/sourceicons/{icon}.avif" type="image/avif">
+                                                    <img src="../../files/sourceicons/{icon}.png" alt="object icon" width="100" height="100" style="float: left;">
+                                                </picture>
+                                            </div>
+                                            <div class="uk-width-expand@m">
+                                                <h3 class="uk-card-title">{name}</h3>
+                                                <div>{description} <a href="{link_url}" swac_hideOnEmpty="{link_url}">{link_title}</a></div>
+                                                <ul class="uk-subnav uk-subnav-divider" uk-margin>
+                                                    <li>{swac_joinsetsCount} &nbsp;<span swac_lang="stat_oolabels_foundoos">objects with this source.</span></li>
+                                                    <li swac_hideOnEmpty="{responsible_name}"><span swac_lang="data_sources_responsible">Responsible</span> &nbsp;<a href="responsible_url">{responsible_name}</a></li>
+                                                    <li swac_hideOnEmpty="{contact_name}"><span swac_lang="data_sources_contact">Contact</span> &nbsp;<a href="{contact_url}">{contact_name}</a> | <a swac_hideOnEmpty="{contact_email}" href="email:{contact_email}">{contact_email}</a></li>
+                                                    <li swac_hideOnEmpty="{data_actual_api}{data_actual_url}"><span swac_lang="data_sources_actual">Actual data</span> &nbsp;<a swac_hideOnEmpty="{data_actual_api}" href="{data_actual_api}">API</a> | <a swac_hideOnEmpty="{data_actual_url}" href="{data_actual_url}">Website</a></li>
+                                                    <li swac_hideOnEmpty="{data_hist_api}{data_hist_url}"><span swac_lang="data_sources_hist">Historical data</span> &nbsp;<a swac_hideOnEmpty=""{data_hist_api}" href="{data_hist_api}">API</a> | <a swac_hideOnEmpty="{data_hist_url}" href="{data_hist_url}">Website</a></li>
+                                                    <li><span swac_lang="data_sources_license">License</span> &nbsp;<a href="{data_license_url}">{data_license}</a></li>
+                                                </ul>
+                                            </div>
+                                            <ul uk-accordion>
+                                                <li>
+                                                    <span uk-icon="cloud-download"></span><a class="uk-accordion-title" href swac_lang="data_sources_citation">Citation</a>
+                                                    <div class="uk-accordion-content">
+                                                        <p>{citation}</p>
+                                                    </div>
+                                                </li>
+                                                <li swac_hideOnEmpty="{data_actual_api_guide}">
+                                                    <span uk-icon="cloud-download"></span><a class="uk-accordion-title" href swac_lang="data_sources_actual_api_guide">Actual data API guide</a>
+                                                    <div class="uk-accordion-content">
+                                                        <p>{data_actual_api_guide}</p>
+                                                    </div>
+                                                </li>
+                                                <li swac_hideOnEmpty="{data_actual_url_guide}">
+                                                    <span uk-icon="download"></span><a class="uk-accordion-title" href swac_lang="data_sources_actual_url_guide">Actual data URL guide</a>
+                                                    <div class="uk-accordion-content">
+                                                        <p>{data_actual_url_guide}</p>
+                                                    </div>
+                                                </li>
+                                                <li swac_hideOnEmpty="{data_hist_api_guide}">
+                                                    <span uk-icon="cloud-download"></span><a class="uk-accordion-title" href swac_lang="data_sources_hist_api_guide">Historical data API guide</a>
+                                                    <div class="uk-accordion-content">
+                                                        <p>{data_hist_api_guide}</p>
+                                                    </div>
+                                                </li>
+                                                <li swac_hideOnEmpty="{data_hist_url_guide}">
+                                                    <span uk-icon="download"></span><a class="uk-accordion-title" href swac_lang="data_sources_hist_url_guide">Historical data URL guide</a>
+                                                    <div class="uk-accordion-content">
+                                                        <p>{data_hist_url_guide}</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <ul class="swac_forChilds uk-list uk-list-decimal"></ul>
+                                    <hr>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </article>
+        <footer>
+            <a href="about/privacy.html">Privacy policy / Datenschutzerklärung</a>
+            <a href="about/imprint.html">Imprint / Impressum</a>
+            <a class="toplink" href="#">Top</a>
+        </footer>
+    </body>
+</html>

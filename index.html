@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SmartMonitoring</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" sizes="32x32" href="files/icons/32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="files/icons/16x16.png">
+        <link rel="stylesheet" href="css/global.css" />
+        <link rel="stylesheet" href="css/login.css" />
+
+        <link rel="stylesheet" href="/SWAC/swac/libs/uikit/css/uikit.min.css" />
+        <script src="/SWAC/swac/libs/uikit/js/uikit.min.js"></script>
+        <script src="/SWAC/swac/libs/uikit/js/uikit-icons.min.js"></script>
+        <script src="/SWAC/swac/swac.js" type="module"></script>
+
+        <script src="index.js"></script>
+        <link rel="manifest" href="site.webmanifest">
+    </head>
+
+    <body>
+        <br><br>
+        <div class="uk-child-width-expand@s uk-text-center" uk-grid>
+            <div></div>
+            <div>
+                <div id="loginform" swa="User TEMPLATE user_form OPTIONS swac_login_options"></div>
+                <div id="screenboard" swa="Screenboard"></div>
+            </div>
+            <div></div>
+        </div>
+        <div id="foot_navigation" class="swac_navigation_foot" swa="Navigation FROM footerlinks">
+            <nav class="uk-navbar uk-navbar-container">
+                <div class="uk-navbar-default">
+                    <ul class="uk-navbar-nav">
+                        <li class="swac_repeatForSet"><a href="{rto}">{name}</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </body>
+</html>
