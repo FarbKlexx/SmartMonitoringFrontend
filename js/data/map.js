@@ -1,39 +1,82 @@
+// datamap: instance id of worldmap in map.html
 window['datamap_options'] = {
-    datadescription: '#datamap_datadescription',
-    plugins: new Map(),
+    datadescription: '#datamap_datadescription', // html id of datadescription component
     geoJSONAttr: 'pos',
+    lonAttr: 'pos_lon', // Mapping field names from table to component
+    latAttr: 'pos_lat',
     clusterMarkers: true,
-    liveMode: 10,
-    allowAddModels: true,
-    baseLayers: new Map()
+    plugins: new Map([
+        ['Navigation', {
+            id: 'navigation',
+            active: true
+        }],
+        ['DataShowModal', {
+            id: 'datashowmodal',
+            active: true
+        }],
+        ['Timeline', {
+            id: 'timeline',
+            active: false
+        }],
+        ['InterfaceMagicMapper', {
+            id: 'interfacemagicmapper',
+            active: false
+        }],
+        ['SearchPlaces', {
+            id: 'searchplaces',
+            active: false
+        }],
+        ['FilterMeasurementPoints', {
+            id: 'filtermeasurementpoints',
+            active: false
+        }],
+        ['ToggleClickInteractionButton', {
+            id: 'toggleclickinteractionbutton',
+            active: false
+        }],
+        ['ToggleLatchOnLocation', {
+            id: 'togglelatchonlocation',
+            active: false
+        }],
+        ['Labels', {
+            id: 'labels',
+            active: false
+        }],
+        ['Help', {
+            id: 'help',
+            active: false
+        }]
+    ])
 };
-window['datamap_options'].baseLayers.set("OpenStreetMaps", {
-    mapProviderURL: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    mapProviderAttribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-    active: true});
-window['datamap_options'].baseLayers.set("LocalAtlas", {
-    mapProviderURL: '/localAtlas/{z}/{x}/{y}.png',
-    mapProviderAttribution: 'Local Atlas',
-    active: true});
 
-window['datamap_options'].plugins.set('DataShowModal', {
-    id: 'datashowmodal',
-    active: true
-});
+// Create route from all available data
+window['navigation_datamap_options'] = {
+    createRouteFromData: true,
+    connectWithLine: true
+};
 
+// Component for in-map pop-up window with data of a point displayed
 window['datashowmodal_datamap_options'] = {
-    activeOn: {
-        fromName: 'tbl_systemconfiguration', // Name of the datatable
-        fromWheres: {
-            filter: 'ckey,eq,func_datamap_datashowmodal&filter=active,eq,true'
-        }
-    }
+    // activeOn: {
+    //     fromName: 'tbl_systemconfiguration', // Name of the datatable
+    //     fromWheres: {
+    //         filter: 'ckey,eq,func_datamap_datashowmodal&filter=active,eq,true'
+    //     }
+    // },
+    attributeOrder: ['measurement_process', 'id', 'ts', 'pm2_5', 'pm10_0', 'temp1'],
+    attrsFormat: new Map([['ts', 'datetime']]) // set lang format
 };
 
-window['datamap_options'].plugins.set('Timeline', {
-    id: 'timeline',
-    active: true
-});
+// colorcode markers on map and provide map legend
+window['datamap_datadescription_options'] = {
+    // initial attribute for coloring map markers
+    visuAttribute: 'pm10_0'
+};
+
+// window['datamap_options'].plugins.set('Timeline', {
+//     id: 'timeline',
+//     active: true,
+// });
 
 window['timeline_datamap_options'] = {
     activeOn: {
@@ -41,27 +84,32 @@ window['timeline_datamap_options'] = {
         fromWheres: {
             filter: 'ckey,eq,func_datamap_timeline&filter=active,eq,true'
         }
-    }
+    },
+    tsAttr: 'ts',
+    startTS: '',
+    endTS: '',
+    outOfTimeOpacity: 0.2,
+    animationStepSize: 1800,
+    animationTimeRange: 86400
 };
 
-window['datamap_options'].plugins.set('Navigation', {
-    id: 'navigation',
-    active: true
-});
+// window['navigation_datamap_options'] = {
+//     activeOn: {
+//         fromName: 'tbl_systemconfiguration', // Name of the datatable
+//         fromWheres: {
+//             filter: 'ckey,eq,func_datamap_navigation&filter=active,eq,true'
+//         }
+//     }
+// }
 
-window['navigation_datamap_options'] = {
+window['interfacemagicmapper_datamap_options'] = {
     activeOn: {
         fromName: 'tbl_systemconfiguration', // Name of the datatable
         fromWheres: {
-            filter: 'ckey,eq,func_datamap_navigation&filter=active,eq,true'
+            filter: 'ckey,eq,func_datamap_magicmapper&filter=active,eq,true'
         }
     }
 };
-
-window['datamap_options'].plugins.set('SearchPlaces', {
-    id: 'searchplaces',
-    active: true
-});
 
 window['searchplaces_datamap_options'] = {
     activeOn: {
@@ -72,11 +120,6 @@ window['searchplaces_datamap_options'] = {
     }
 };
 
-window['datamap_options'].plugins.set('FilterMeasurementPoints', {
-    id: 'filtermeasurementpoints',
-    active: true
-});
-
 window['filtermeasurementpoints_datamap_options'] = {
     activeOn: {
         fromName: 'tbl_systemconfiguration', // Name of the datatable
@@ -85,11 +128,6 @@ window['filtermeasurementpoints_datamap_options'] = {
         }
     }
 };
-
-window['datamap_options'].plugins.set('ToggleClickInteractionButton', {
-    id: 'toggleclickinteractionbutton',
-    active: true
-});
 
 window['toggleclickinteractionbutton_datamap_options'] = {
     activeOn: {
@@ -100,11 +138,6 @@ window['toggleclickinteractionbutton_datamap_options'] = {
     }
 };
 
-window['datamap_options'].plugins.set('ToggleLatchOnLocation', {
-    id: 'togglelatchonlocation',
-    active: true
-});
-
 window['togglelatchonlocation_datamap_options'] = {
     activeOn: {
         fromName: 'tbl_systemconfiguration', // Name of the datatable
@@ -114,11 +147,6 @@ window['togglelatchonlocation_datamap_options'] = {
     }
 };
 
-window['datamap_options'].plugins.set('Help', {
-    id: 'help',
-    active: true
-});
-
 window['help_datamap_options'] = {
     activeOn: {
         fromName: 'tbl_systemconfiguration', // Name of the datatable
@@ -127,11 +155,6 @@ window['help_datamap_options'] = {
         }
     }
 };
-
-window['datamap_options'].plugins.set('Labels', {
-    id: 'labels',
-    active: true
-});
 
 window['labels_datamap_options'] = {
     activeOn: {

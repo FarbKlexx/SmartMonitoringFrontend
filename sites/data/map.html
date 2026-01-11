@@ -1,45 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title swac_lang="data_map_title">Data > Map</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" sizes="32x32" href="../../files/icons/32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="../../files/icons/16x16.png">
-        <link rel="stylesheet" href="../../css/global.css" />
 
-        <link rel="stylesheet" href="/SWAC/swac/libs/uikit/css/uikit.min.css" />
-        <script src="/SWAC/swac/libs/uikit/js/uikit.min.js"></script>
-        <script src="/SWAC/swac/libs/uikit/js/uikit-icons.min.js"></script>
-        <script src="/SWAC/swac/swac.js" type="module"></script>
-        <script src="../../js/data/map.js"></script>
-        <script src="../../js/general/oo_change.js"></script>
-        <script src="../../customisations/data/datadesc.js"></script>
+<head>
+    <title swac_lang="data_map_title">Data > Map</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../files/icons/32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../files/icons/16x16.png">
+    <link rel="stylesheet" href="../../css/global.css" />
 
-        <link rel="stylesheet" href="../../customisations/global.css" />
-    </head>
+    <link rel="stylesheet" href="/SWAC/swac/libs/uikit/css/uikit.min.css" />
+    <script src="/SWAC/swac/libs/uikit/js/uikit.min.js"></script>
+    <script src="/SWAC/swac/libs/uikit/js/uikit-icons.min.js"></script>
+    <script src="/SWAC/swac/swac.js" type="module"></script>
+    <script src="../../js/data/map.js"></script>
+    <script src="../../js/general/oo_change.js"></script>
 
-    <body>
-        <nav id="main_navigation" class="swac_navigation_head" swa="Navigation FROM tbl_navigationroute WHERE filter=active,eq,true AND order=id,ASC"></nav>
-        <div id="userform" swa="User"></div>
-        <div id="translate" swa="Translator FROM ../../data/languages/translations.json"></div>
+    <link rel="stylesheet" href="../../customisations/global.css" />
+</head>
 
-        <div id="oo_change" swa="Select FROM tbl_observedobject WHERE filter=data_collection,nis"></div>
+<body>
+    <div class="config-box" id="config-box"></div>
+    <nav id="main_navigation" class="swac_navigation_head"
+        swa="Navigation FROM tbl_navigationroute WHERE filter=active,eq,true AND order=id,ASC"></nav>
+    <div id="userform" swa="User"></div>
+    <div id="translate" swa="Translator FROM ../../data/languages/translations.json"></div>
 
+    <div class="section">
         <article class="uk-article">
-            <h2 class="uk-article-title" swac_lang="data_map_title">Datamap</h2>
+            <!-- Page title -->
+            <h1 class="outfit-font primary" swac_lang="Datamap"></h1>
+            <h2 class="outfit-font black" swac_lang="overall_overview"></h2>
+
+            <!-- Select menu box for measuring device -->
+            <div id="oo_change" swa="Select FROM tbl_observedobject WHERE filter=data_collection,nis"></div>
+
+            <!-- Page description -->
             <p class="uk-article-meta" swac_lang="data_map_desc"></p>
+
+            <!-- Map legend and map -->
             <div uk-grid>
                 <div class="uk-width-1-6">
-                    <div id="datamap_datadescription" swa="Datadescription FROM datadesc"></div>
+                    <div id="datamap_datadescription" swa="Datadescription FROM {{map_datadescription}}"></div>
                 </div>
                 <div class="uk-width-5-6">
-                    <div id="datamap" swa="Worldmap2d FROM {{data_collection}}"></div>
+                    <div id="datamap" swa="Worldmap2d FROM {{data_collection}} WHERE order={{timestamp}},DESC"></div>
                 </div>
             </div>
         </article>
-        <br><br>
-        <div id="geolocation" swa="Geolocation"></div>
-        <div id="favs" swa="Favourites"></div>
-    </body>
+    </div>
+    <div id="favs" swa="Favourites"></div>
+</body>
+
 </html>

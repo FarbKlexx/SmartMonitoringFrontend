@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title swac_lang="data_list_title">Data > List</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../files/icons/32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../files/icons/16x16.png">
+        <link rel="stylesheet" href="../../customisations/global.css"/>
+        <link rel="stylesheet" href="../../css/global.css" />
+        <link rel="stylesheet" href="/SWAC/swac/libs/uikit/css/uikit.min.css" />
+        <script src="/SWAC/swac/libs/uikit/js/uikit.min.js"></script>
+        <script src="/SWAC/swac/libs/uikit/js/uikit-icons.min.js"></script>
+        <script src="/SWAC/swac/swac.js" type="module"></script>
+        <script src="../../js/data/list.js"></script>
+        <script src="../../js/statistic/chart_dynamic.js"></script>
+        <script src="../../js/statistic/chart.js"></script>
+        <script src="../../js/object/tableFilter.js"></script>
+
+        <!-- Google Icons + Fonts -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+        
+    </head>
+
+    <body>
+      <div class="config-box" id="config-box"></div>
+      <nav id="main_navigation" class="swac_navigation_head" swa="Navigation FROM tbl_navigationroute WHERE filter=active,eq,true AND order=id,ASC"></nav>
+      <div id="userform" swa="User"></div>
+      <div id="translate" swa="Translator FROM ../../data/languages/translations.json"></div>
+      
+
+      <div class="section">
+        <!-- Name und Type-->
+        <div id="objectlist" swa="Select FROM tbl_observedobject WHERE filter=id,eq,{id}">
+          <div id="objecttype_{id}"  swa="Present FROM tbl_ootype WHERE filter=id,eq,{ootype_id}">
+            <h1 class="swac_repeatForSet outfit-font primary">{name}</h1>
+          </div>
+          <div class="uk-card">
+            <h2 class="uk-card-title">{name}</h2> 
+          </div>
+        </div>
+
+        <!--position-->
+        <div id="devices_loc" swa="Select FROM tbl_location WHERE filter=id,eq,{id}">
+            <!--<span class="swac_repeatForSet status-{status}"> Position: {coordinates}</span>-->
+            <h3 class="swac_repeatForSet status-{status}"><div swac_lang="street" swac_lang_format="datetime" style="display: inline;"></div>: {street}</h3>
+        </div>
+        
+        <!--Letzter Sync-->
+        <div id="objectdata_stat" swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/whole?smartdataurl={{smartdataurl}}&collection={{data_collection}}&storage=smartmonitoring&dateattribute={{timestamp}}">
+          <span class="swac_repeatForSet outfit-font primary" swac_lang_format="datetime"><div style="display: inline;  margin-right: 10px;" swac_lang="last_sync"></div> {lastset}</span>
+        </div>
+
+        <div class="stats-container">
+
+          <!-- PM2.5-->
+          <div id="mean_pm2_5"
+            class="stat-card"
+            swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/mean?smartdataurl={{smartdataurl}}&collection={{data_collection}}&storage=smartmonitoring&column=pm2_5">
+            <span class="material-icons-outlined stats-icon">{{display_value_1_icon}}</span>
+            <div>
+              <div class="stat-value outfit-font black" swac_lang_format="decimal" swac_round="2">{mean}</div>
+              <div class="stat-label outfit-font grey" swac_lang="{{display_value_1}}"></div>
+            </div>
+          </div>
+
+          <!-- PM10 -->
+          <div id="mean_pm10_0"
+            class="stat-card"
+            swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/mean?smartdataurl={{smartdataurl}}&collection={{data_collection}}&storage=smartmonitoring&column=pm10_0">
+            <span class="material-icons-outlined stats-icon">{{display_value_2_icon}}</span>
+            <div>
+              <div class="stat-value outfit-font black" swac_lang_format="decimal" swac_round="2">{mean}</div>
+              <div class="stat-label outfit-font grey" swac_lang="{{display_value_2}}"></div>
+            </div>
+          </div>
+
+          <!-- Temp -->
+          <div id="mean_temp"
+            class="stat-card"
+            swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/mean?smartdataurl={{smartdataurl}}&collection={{data_collection}}&storage=smartmonitoring&column=temp1">
+            <span class="material-icons-outlined stats-icon">{{display_value_3_icon}}</span>
+            <div>
+              <div class="stat-value outfit-font black" swac_lang_format="decimal" swac_round="2">{mean}</div>
+              <div class="stat-label outfit-font grey" swac_lang="{{display_value_3}}"></div>
+            </div>
+          </div>
+
+          <!-- Count - Datasets-->
+          <div id="count-datasets"
+            class="stat-card"
+            swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/whole?smartdataurl={{smartdataurl}}&collection={{data_collection}}&storage=smartmonitoring&dateattribute={{timestamp}}">
+            <span class="material-icons-outlined stats-icon">{{display_value_4_icon}}</span>
+            <div>
+              <div class="stat-value outfit-font black">{count}</div>
+              <div class="stat-label outfit-font grey" swac_lang="countDatasets"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!--Datenpunkte von Stationären-->
+          <!-- <div class="dev-header" swac_showOnEmpty="{{type_3}}">
+              <h3 class="primary">Datenpunkte</h3>
+          </div> -->
+
+
+        <!-- Auswahlmenu (Chart oder Datenpunkte) für Stationäre Messstationen -->
+        <div swac_showOnEmpty="{{type_3}}">
+          <ul class="uk-subnav uk-subnav-pill custom-switcher"
+              uk-tab="connect: #type3-switcher; swiping: false">
+              <li class="uk-active"><a href="#" swac_lang="chart"></a></li>
+            <li><a href="#" swac_lang="datapoints"></a></li>
+          </ul>
+
+          <div id="type3-switcher" class="uk-switcher uk-margin">
+
+              <!-- TAB 1: Chart -->
+              <div class="dev-card">
+                <div class="chart-container">
+                  <div>
+                    <label class="chart-label" for="y1-select">Y1</label>
+                    <div>
+                      <select id="y1-select" class="chart-input">
+                        <option value="" swac_lang="noSelection"></option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="chart-label" for="y2-select">Y2</label>
+                    <div>
+                      <select id="y2-select" class="chart-input">
+                        <option value="" swac_lang="noSelection"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chart-container">
+                  <div>
+                    <label class="chart-label" for="start-datetime" swac_lang="start"></label>
+                    <input id="start-datetime" type="datetime-local" class="chart-input">
+                  </div>
+
+                  <div>
+                    <label class="chart-label" for="end-datetime" swac_lang="end"></label>
+                    <input id="end-datetime" type="datetime-local" class="chart-input">
+                  </div>
+
+                  <div>
+                    <button id="confirm-range" class="chart-button" swac_lang="apply"></button>
+                  </div>
+                </div>
+                <div id="chart" swa="Charts FROM {{data_collection}} WHERE order={{timestamp}},DESC AND size=3000"></div>
+              </div>
+
+            <!-- TAB 2: Datenpunkte -->
+            <article style="padding-left: 0;" swac_showOnEmpty="{{type_3}}">
+              <div class="search-wrapper">
+                <span class="material-icons-outlined search-icon">search</span>
+                <input id="tableSearch" type="text" class="search-input" onkeyup="filterTable()" placeholder="...">
+              </div>
+              <div class="dev-card">
+                <div id="datalist" swa="Select FROM {{data_collection}} WHERE order={{timestamp}},DESC">
+                  <table class="dev-table" id="dataTable">
+                    <thead class="outfit-font black">
+                      <tr>
+                        <th>ID</th>
+                        <th swac_lang="{{timestamp}}"></th>
+                        <th swac_lang="{{display_value_3}}"></th>
+                        <th swac_lang="{{display_value_1}}"></th>
+                        <th swac_lang="{{display_value_2}}"></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swac_repeatForSet">
+                            <td>{id}</td>
+                            <td swac_lang_format="datetime">{{{timestamp}}}</td>
+                            <td swac_lang_format="decimal" swac_round="2">{temp1}</td>
+                            <td swac_lang_format="decimal" swac_round="2">{pm2_5}</td>
+                            <td swac_lang_format="decimal" swac_round="2">{pm10_0}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+          <!--Routen von Mobilen-->
+          <div class="dev-header" swac_showOnEmpty="{{type_2}}">
+              <h3 class="primary" swac_lang="routes"></h3>
+          </div>
+
+          <article style="padding-left: 0;" swac_showOnEmpty="{{type_2}}">
+              <div class="dev-card">
+                  <div id="routelist" swa="Select FROM {{data_collection}} WHERE unique=measurement_process">
+                      <table class="dev-table" id="routeTable">
+                          <thead class="outfit-font black">
+                          <tr>
+                              <th>ID</th>
+                              <th swac_lang="datapoints"></th>
+                              <th></th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr class="swac_repeatForSet" swac_hideOnEmpty="{avail_sets}">
+                              <td><strong>{measurement_process}</strong></td>
+                              <td>{avail_sets}</td>
+                              <td><a href="routenDetails.html?id={{id}}&data_collection={{data_collection}}&measurement_process={measurement_process}">Details</a></td>
+                              <td><a href="../statistic/diagramm.html?id={{id}}&data_collection={{data_collection}}&measurement_process={measurement_process}">Statistik</a></td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </article>
+      </div>
+    </body>
+</html>

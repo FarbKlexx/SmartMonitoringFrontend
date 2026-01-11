@@ -1,3 +1,4 @@
+// Configuration of Dashboard
 window['dashboard_cards_options'] = {
     activeOn: {
         fromName: 'tbl_systemconfiguration', // Name of the datatable

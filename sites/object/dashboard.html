@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
+
     <head>
         <title swac_lang="object_dashboard_title">SmartMonitoring - Dashboard</title>
         <meta charset="UTF-8">
@@ -7,15 +8,26 @@
         <link rel="icon" type="image/png" sizes="32x32" href="../../files/icons/32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="../../files/icons/16x16.png">
         <link rel="shortcut icon" type="image/x-icon" href="../../customisations/favicon.png">
+
+        <!-- Google Icons + Fonts -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../customisations/global.css"/>
         <link rel="stylesheet" href="../../css/global.css" />
+
+        <!-- UIKit -->
         <link rel="stylesheet" href="/SWAC/swac/libs/uikit/css/uikit.min.css" />
+
         <script src="/SWAC/swac/libs/uikit/js/uikit.min.js"></script>
         <script src="/SWAC/swac/libs/uikit/js/uikit-icons.min.js"></script>
         <script src="/SWAC/swac/swac.js" type="module"></script>
 
         <script src="../../js/object/dashboard.js"></script>
-        
-        <link rel="stylesheet" href="../../customisations/global.css" />
+        <script src="../../js/object/deviceStatus.js"></script>
+        <script src="../../js/object/tableFilter.js"></script>
         <script src="../../customisations/object/dashboard.js"></script>
     </head>
 
@@ -25,61 +37,122 @@
         <div id="userform" swa="User"></div>
         <div id="translate" swa="Translator FROM ../../data/languages/translations.json"></div>
 
-        <article>
-            <h1 class="uk-heading-small"><span swac_lang="object_dashboard_welcome">Welcome</span> <span class="user_firstname"></span> <span class="user_lastname"></span></h1>
-            <div class="uk-child-width-expand@m uk-text-center" uk-grid>
-                <div>
-                    <picture>
-                        <source srcset="../../files/icons/192x192.avif" type="image/avif">
-                        <img src="../../files/icons/192x192.png" alt="Project logo">
-                    </picture> 
+        <div class="section">
+            <!-- Page title -->
+            <div class="dashboard-header">
+                <div class="dashboard-titles">
+                    <h1 class="outfit-font primary">Dashboard</h1>
+                    <h2 class="outfit-font black" swac_lang="overall_statistics"></h2>
                 </div>
-                <div>
-                    <h3 swac_lang="object_dashboard_welcomehead"></h3>
-                    <p swac_lang="object_dashboard_welcometext"></p>
-                </div>
-                <div>
-                    <h3 swac_lang="object_dashboard_setuphead"></h3>
-                    <p swac_lang="object_dashboard_setuptext"></p>
-                    <a href="../admin/setup.html" class="uk-button uk-button-primary" swac_lang="object_dashboard_tosetup">To setup</a>
-                </div>
-                <!--<div>
-                    <div id="object_col_sum" swa="Present FROM tbl_observedobject WHERE filter=datacapture,eq,true AND size=1 AND countonly=true">
-                        <h2>{count}</h2>
-                    </div>
-                    <span swac_lang="object_dashboard_collectingobjs"></span> <a href="list.html"><span uk-icon="list"></span></a>
-                    <br>
-                    <div id="object_new_sets" swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/count?smartdataurl={{smartdataurl}}&storage=smartmonitoring&dateattribute=ts&lasthours=48">
-                        <h2>{count}</h2>
-                    </div>
-                    <span swac_lang="object_dashboard_collectedsets"></span>
-                </div>-->
+
+                <a href="routePlanner.html" class="dashboard-action-btn">
+                    <span class="material-icons-outlined">map</span>
+                </a>
             </div>
-            
-        </article>
-        
-        <div id="dashboard_cards" swa="Dashboard FROM dashboard_cards"></div>
-        
-        <article class="uk-article">
-            <h1 class="uk-heading-line uk-text-center" swac_lang="object_dashboard_showcases_title">Showcases</h1>
-            <p swac_lang="object_dashboard_showcases_desc"></p>
-            <div id="lastmaps" swa="Present FROM ../../customisations/object/showcases.json TEMPLATE card_per_dataset">
-                <ul class="uk-grid-small uk-child-width-1-6 uk-text-center" uk-grid>
-                    <li class="swac_repeatForSet">
-                        <div class="uk-card uk-card-default uk-card-body" swac_id="{id}" swac_parent="{parent}">
-                            <h3 class="uk-card-title">{title}</h3>
-                            <p>{desc}</p>
-                            <a href="{url}">
-                                <img swac_hideOnEmpty="{img}" src="../../customisations/object/{img}.jpg">
-                                <br>{urltitle}
-                            </a>
+
+            <!-- General Statistics -->
+            <div class="stats-container">
+                <div id="all_datapoints"
+                     class="stat-card"
+                     swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/count?smartdataurl={{smartdataurl}}&collection=tbl_observedobject&storage=smartmonitoring&ref=data_collection">
+                    <span class="material-icons-outlined stats-icon">analytics</span>
+                    <div>
+                        <div class="stat-value outfit-font black">{count}</div>
+                        <div class="stat-label outfit-font grey" swac_lang="datapoints"></div>
+                    </div>
+                </div>
+
+                <div id="mean_pm2_5"
+                     class="stat-card"
+                     swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/mean?smartdataurl={{smartdataurl}}&collection=tbl_observedobject&storage=smartmonitoring&column={{display_value_1}}&ref=data_collection">
+                    <span class="material-icons-outlined stats-icon">{{display_value_1_icon}}</span>
+                    <div>
+                        <div class="stat-value outfit-font black" swac_lang_format="decimal" swac_round="2">{mean}</div>
+                        <div class="stat-label outfit-font grey" swac_lang="{{display_value_1}}"></div>
+                    </div>
+                </div>
+
+                <div id="mean_pm10_0"
+                     class="stat-card"
+                     swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/mean?smartdataurl={{smartdataurl}}&collection=tbl_observedobject&storage=smartmonitoring&column={{display_value_2}}&ref=data_collection">
+                    <span class="material-icons-outlined stats-icon">{{display_value_2_icon}}</span>
+                    <div>
+                        <div class="stat-value outfit-font black" swac_lang_format="decimal" swac_round="2">{mean}</div>
+                        <div class="stat-label outfit-font grey" swac_lang="{{display_value_2}}"></div>
+                    </div>
+                </div>
+
+                <div id="all_devices"
+                     class="stat-card"
+                     swa="Present FROM /SmartDataLyser/smartdatalyser/statistic/count?smartdataurl={{smartdataurl}}&collection=tbl_observedobject&storage=smartmonitoring">
+                    <span class="material-icons-outlined stats-icon">devices</span>
+                    <div>
+                        <div class="stat-value outfit-font black">{count}</div>
+                        <div class="stat-label outfit-font grey" swac_lang="data_sources"></div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="uk-subnav uk-subnav-pill custom-switcher" uk-switcher="connect: #dashboard-switcher">
+                <li class="uk-active"><a href="#" swac_lang="data_sources">Geräte</a></li>
+            </ul>
+
+            <div id="dashboard-switcher" class="uk-switcher uk-margin">
+                <div>
+                    <!-- Search in table -->
+                    <div class="search-wrapper">
+                        <span class="material-icons-outlined search-icon">search</span>
+                        <input
+                                id="tableSearch"
+                                type="text"
+                                class="search-input"
+                                onkeyup="filterTable()"
+                                placeholder="..."
+                        >
+                    </div>
+                    
+                    <!-- Device table -->
+                    <article style="padding-left: 0">
+                        <div class="dev-card">
+                            <div id="devices_overview">
+                                <table class="dev-table sortable-table" id="deviceTable" swa="Present FROM tbl_observedobject WHERE order=id,ASC">
+                                    <thead class="outfit-font black">
+                                    <tr>
+                                        <th onclick="sortTable(0)">Status</th>
+                                        <th onclick="sortTable(1)">ID</th>
+                                        <th onclick="sortTable(2)">Name</th>
+                                        <th onclick="sortTable(3)" swac_lang="type"></th>
+                                        <th onclick="sortTable(4)">MAC</th>
+                                        <th onclick="sortTable(5)" swac_lang="last_sync"></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr class="swac_repeatForSet">
+                                        <td  id="status_{id}" swa="Present FROM {data_collection} WHERE size=1 AND order=id,DESC" swac_lang_format="datetime">{{{timestamp}}}</td>
+                                        <td>{id}</td>
+                                        <td>{name}</td>
+                                        <td>
+                                            <div id="objecttype_{id}" swa="Present FROM tbl_ootype WHERE filter=id,eq,{ootype_id}">
+                                                <span>{name}</span>
+                                            </div>
+                                        </td>
+                                        <td>{mac}</td>
+                                        <td>
+                                            <div id="lastsync_{id}" swa="Present FROM {data_collection} WHERE size=1 AND order=id,DESC">
+                                                <span swac_lang_format="datetime">{{{timestamp}}}</span>
+                                            </div>
+                                        </td>
+                                        <td><a href="data_display.html?id={id}&data_collection={data_collection}&type_{ootype_id}=1">Details</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </li>
-                </ul>
+                    </article>
+                </div>
             </div>
-            <a href="../data/sources.html" class="uk-button uk-button-primary">See more datasources</a>
-        </article>
-        
-        <div id="ecomode" swa="Ecomode"></div>
+        </div>
     </body>
 </html>
