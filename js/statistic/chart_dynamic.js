@@ -6,24 +6,22 @@ const COLLECTION = params.get('data_collection');
 const STORAGE    = 'smartmonitoring';
 const API_BASE   = `${window.location.origin}/SmartDataAirquality/smartdata/collection`;
 
-let allowedNames = ['pm2_5', 'pm10_0', 'temp1']; 
+function getAllowedNames() {
+  const gp = (typeof SWAC_config !== 'undefined' && SWAC_config.globalparams)
+    ? SWAC_config.globalparams
+    : {};
 
-
-//Prüfen auf SWAC_config und SWAC_config.globalparams, um das auflösen der Namen in der configuration zu ermöglichen.
-if (typeof SWAC_config !== 'undefined' && SWAC_config.globalparams) {
-  const gp = SWAC_config.globalparams;
-
-  allowedNames = [
+  return [
     gp.display_value_1,
     gp.display_value_2,
-    gp.display_value_3
-  ].filter(Boolean); 
+    gp.display_value_5
+  ].filter(Boolean);
 }
 
 const displayNames = {
-  pm2_5:  'pm2_5',
-  pm10_0: 'pm10_0',
-  temp1:  'temp1'
+  pm2_5:  'pm2_5_1',
+  pm10_0: 'pm10_0_1',
+  temp1:  'temp1_1'
 };
 
 
@@ -72,6 +70,7 @@ translateSelectOptions();
 
     //Filtern nur nach den allowedNames 
     const map = new Map(attrs.map(a => [a.name, a]));
+    const allowedNames = getAllowedNames();
     const filtered = allowedNames.map(n => map.get(n)).filter(Boolean);
 
 
@@ -85,8 +84,7 @@ translateSelectOptions();
       return;
     }
 
-    //Füllen von Y1&Y2
-    const currentY1 = params.get('y1') || 'pm2_5';
+    const currentY1 = params.get('y1') || allowedNames[0] || '';
     const currentY2 = params.get('y2');
 
     y1Select.innerHTML = '<option value="" swac_lang="noSelection"></option>';

@@ -458,6 +458,9 @@ var app_de = {
     apply: 'Bestätigen',
     noSelection: 'Keine Auswahl',
     routes: 'Routen',
+    pm2_5_1: 'PM 2,5',
+    pm10_0_1: 'PM 10,0',
+    temp1_1: ' Temperatur 1',
 
     /**
      * Airquality Route Details

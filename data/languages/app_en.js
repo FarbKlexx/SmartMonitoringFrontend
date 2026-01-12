@@ -397,6 +397,9 @@ var app_en = {
     apply: 'Apply',
     noSelection: 'No Selection',
     routes: 'Routes',
+    temp1_1: 'Temperature 1',
+    pm2_5_1: 'PM 2.5',
+    pm10_0_1: 'PM 10.0',
 
     duration: 'Duration',
     data_route_title: 'Data > Route',
